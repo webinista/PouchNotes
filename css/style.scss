@@ -1,0 +1,355 @@
+@import "normalize.scss";
+
+/*======== Variables ========*/
+
+$colorA: rgb(86,181,206); /* Light teal */
+$colorB: rgb(45,103,117); /* Dark teal */
+
+$colorC: #222; /* Near black */
+
+$colorD: #0034ac; /* Vibrant blue */
+$colorDhover: #f03; /* Vibrant blue */
+
+$br5: 5px;
+$br8: 8px;
+
+$deemphasize: #ccc;
+
+/*======== Mixins ========*/
+@mixin linear-gradient-a($top, $bottom){
+    background-color: $bottom;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($top), to($bottom));
+    background-image: -webkit-linear-gradient(top, $top, $bottom);
+    background-image: -moz-linear-gradient(top, $top, $bottom);
+    background-image: -o-linear-gradient(top, $top, $bottom);
+    background-image: -ms-linear-gradient(top, $top, $bottom);
+    background-image: linear-gradient(top, $top, $bottom);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='ie-hex-str($top)', EndColorStr='ie-hex-str($bottom)');
+}
+
+@mixin text-rendering($option){
+    -webkit-text-rendering: $option;
+       -moz-text-rendering: $option;
+        -ms-text-rendering: $option;
+            text-rendering: $option;   
+}
+
+@mixin placeholder-text($color){
+    :focus::-webkit-input-placeholder{
+        color: $color;
+    }
+    :focus::-moz-placeholder { 
+        color: $color;  
+    }
+
+    :focus:-ms-input-placeholder {  
+        color: $color;
+    }   
+}
+a:link{color:$colorB}
+a:visited{color:$colorB}
+
+body{
+    background: #fff; 
+    color:#222;
+    font: 14px / 1.5 sans-serif;
+    @include text-rendering('optimizeLegibility');
+}
+main,footer{
+    width:90%;
+    margin:1em auto;
+}
+
+header{
+    background: #eee; 
+    margin:0 0 1rem 0;
+    padding: .5rem;
+    border-bottom:2px groove #eee;
+    border-top: 2px groove #eee;
+    
+    h1{
+        margin:0 0 .5rem .27rem;
+        font-size: 1.2rem;
+    }
+    nav{
+        margin:0;
+        
+        a{
+            display:inline-block;
+            margin: 0 3rem 0 0;
+            padding: 2px .25rem 2px .25rem; 
+            border: 1px solid transparent;
+        }
+        a:hover{
+            border-color: $colorA;
+            background:#b0f4ff;
+            background-size: 10px 10px;
+            border-radius:$br5;
+            line-height:1.1;
+            text-decoration:none;
+        }
+    }
+    
+}
+
+/*-- Headings --*/
+h1,h2,h3,h4,h5,h6{
+    margin: 1rem 0 0 0;   
+}
+h1{
+    font-size:2.1rem;
+}
+h2{
+    font-size:2rem;
+}
+h3{
+     font-size:1.8rem;
+}
+h4{
+     font-size:1.6rem;
+}
+h5{
+     font-size:1.4rem;
+}
+h5{
+     font-size:1.2rem;
+}
+h6{
+     font-size:1.1rem;
+}
+
+/*----- Globals -----*/
+.clicktarget{
+    cursor:pointer;
+}
+.link{
+    color: $colorD;
+}
+
+.link:hover{
+    color: $colorDhover; 
+}
+
+.hide{
+    display:none;        
+}
+
+.block{
+    display:block;
+}
+.iblock{
+    display:inline-block;
+}
+/* Positioning */
+.rel{
+    position:relative;
+}
+.abs{
+    position:absolute;
+}
+.dialog{
+    background: rgba(0,0,0,.5);
+    position:fixed;
+    width:100%;
+    height:100%; 
+    top:0;
+    left:0;
+    z-index: 5;
+    
+    > div{
+        background: #fff;
+        width: 60%;
+        margin:3rem auto;
+        position:relative;
+        z-index:inherit;
+        padding: 1rem;
+    } 
+    
+    h1{
+        margin:0;
+    }
+}
+label.btn{
+	 line-height: normal;
+	 text-transform: none;
+     cursor: pointer; /* 3 */
+     padding: .5rem .75rem;
+}
+/*-- Forms --*/
+label:not(.btn){
+    font-weight:bold;
+    display:block;
+}
+
+button:not(.close), .btn{
+    @include linear-gradient-a($colorA, $colorB);
+    padding: .3rem .75rem;
+    font:inherit;
+    font-weight:bold;
+    color: #fff;
+    text-shadow: 0px 0px 2px $colorB;
+    border: 1px solid $colorB;
+    border-radius: $br5;
+    
+    &:hover, &:active{
+        @include linear-gradient-a($colorB, $colorA);
+    }
+    &:focus{
+        outline-color:$colorA;
+    }
+    &.sync{
+        color: #444;
+        text-shadow: none;
+        border-color: #ccc;
+        right:0;
+        @include linear-gradient-a(#eee,#ccc);
+        
+        &:hover{
+       		@include linear-gradient-a(#ccc,#eee);
+    	}
+    }
+    
+    
+    &.edit, &.delete{
+        border-color: #f30;
+        text-shadow: 0px 0px 2px #941801;
+        @include linear-gradient-a(#ff7c66,#f30);
+        
+        &:active, &:focus{
+            outline-color:#ff7c66;
+        }
+        &:hover{
+            @include linear-gradient-a(#f30,#ff7c66);
+        }
+    }
+}
+
+.close{
+    border:none;
+    background: #f30 url(../img/close.svg) center no-repeat;
+    color: transparent;
+    border-radius: 1000rem;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    background-size: 60% 60%;
+    opacity: .8;
+    &:hover{
+         opacity: 1;    
+    }
+    position:absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+[id=attachments]{
+	h2{
+		margin:0;
+		font-size: 1.2em
+	}
+}
+
+/*-- Note form --*/
+textarea{
+    min-height:5rem;
+}
+textarea, 
+[type=text], 
+[type=search]{
+    width: 100%;
+    box-shadow:none;
+    font:inherit;
+    border-radius: $br5;
+    border: 1px solid $deemphasize;
+    padding: .25rem;
+    
+    &:focus{
+        background:#ffc;
+        outline:none;
+        box-shadow: 0 0 4px 0px $colorA;
+        border: 1px solid $colorA;
+    }
+}
+
+[type=search]{
+	width:85.5%;
+}
+[id=searchnotes] button{
+	padding: .4rem 1.5rem;
+}
+
+form{
+    @include placeholder-text(transparent);
+}
+
+.disabled{
+    label, .guidance, [type=submit]{
+        display:none;
+    }
+    .edit{
+        display:inline-block;
+    }
+}
+
+[disabled]{
+	border: none;
+	padding:0;
+	color: #000;
+	background:transparent;
+}
+
+textarea[disabled] {
+	resize: none;
+}
+
+[type=file]{
+	opacity:0;
+	
+	&:disabled{
+		display: none;
+	}
+}
+
+[id=notetitle][disabled], [id=notetitle]:disabled{
+    font-size:1.6rem;   
+}
+
+progress{
+	display:block;
+	margin: 3em auto;
+	width: 90%;
+}
+
+/*==== Note Table ====*/
+table{
+    width:100%;
+    border:1px solid $deemphasize;
+    border-collapse:collapse;
+    margin: 0;
+}
+th,td{
+    padding:.25rem .5rem;
+}
+th{
+    border:1px solid $colorB;   
+}
+td{
+    border:1px solid $deemphasize;
+}
+thead{
+    background: $colorA;
+}
+th:first-child{
+    width: 60%; 
+    text-align:left;
+}
+tbody tr:nth-child(even){
+    background:#eee;   
+}
+
+/*==== Footer ===*/
+body > footer p{
+    font-style: italic;
+    color: $deemphasize;
+    text-align:right;
+}

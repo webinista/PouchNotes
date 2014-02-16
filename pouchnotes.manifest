@@ -1,0 +1,8 @@
+CACHE MANIFEST
+# Version 2014.02.10.01
+
+CACHE:
+index.html
+css/style.css
+js/pouchdb-nightly.min.js
+js/application.js
